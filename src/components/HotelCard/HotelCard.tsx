@@ -1,6 +1,6 @@
 import React from 'react';
-import { Star, Users, Calendar } from 'lucide-react';
-import { Hotel } from '../../types/booking';
+import { Star, MapPin } from 'lucide-react';
+import { Hotel } from '../../types/hotel';
 
 interface HotelCardProps {
   hotel: Hotel;
@@ -8,11 +8,28 @@ interface HotelCardProps {
 }
 
 export function HotelCard({ hotel, onSelect }: HotelCardProps) {
+  const handleMapClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.name + ' ' + hotel.location)}`, '_blank');
+  };
+
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+    <div 
+      onClick={() => onSelect(hotel)}
+      className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+    >
       <img src={hotel.image} alt={hotel.name} className="w-full h-64 object-cover" />
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">{hotel.name}</h3>
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-semibold text-gray-900">{hotel.name}</h3>
+          <button 
+            onClick={handleMapClick}
+            className="text-indigo-600 hover:text-indigo-800"
+          >
+            <MapPin size={20} />
+          </button>
+        </div>
+        
         <div className="flex items-center mb-4">
           {[...Array(5)].map((_, i) => (
             <Star
@@ -23,23 +40,9 @@ export function HotelCard({ hotel, onSelect }: HotelCardProps) {
           ))}
         </div>
         
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <Users size={16} className="mr-2" />
-            <span>{hotel.rooms} habitaciones disponibles para el evento</span>
-          </div>
-          <div className="flex items-center text-sm text-gray-600">
-            <Calendar size={16} className="mr-2" />
-            <span>{hotel.events.length} eventos activos</span>
-          </div>
+        <div className="text-sm text-gray-600">
+          <p>{hotel.rooms} habitaciones • {hotel.halls} salas • {hotel.restaurants} restaurantes</p>
         </div>
-        
-        <button
-          onClick={() => onSelect(hotel)}
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors"
-        >
-          Ver tarifas del evento
-        </button>
       </div>
     </div>
   );

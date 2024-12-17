@@ -1,39 +1,36 @@
-export interface EventRate {
-  id: string;
-  name: string;
-  price: number;
-  conditions: string[];
-  maxGuests: number;
-  amenities: string[];
-}
-
-export interface Event {
-  id: string;
-  name: string;
-  startDate: string;
-  endDate: string;
-  code: string;
-  rates: EventRate[];
-}
-
-export interface Room {
-  id: string;
-  type: string;
-  capacity: number;
-  description: string;
-  images: string[];
-  rates: EventRate[];
-}
-
-export interface Hotel {
+export interface RoomType {
   id: string;
   name: string;
   image: string;
-  rating: number;
-  rooms: number;
-  halls: number;
-  restaurants: number;
-  location: string;
-  events: Event[];
-  availableRooms: Room[];
+  price: number;
+  occupancy: string;
+  mealPlan: string;
+}
+
+export interface BookingDate {
+  startDate: string;
+  endDate: string;
+}
+
+export interface AdditionalService {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+  capacity: number;
+  configuration?: string;
+  timeSlot?: string;
+}
+
+export interface BookingItem {
+  id: string;
+  type: 'room' | 'service';
+  quantity: number;
+  dates?: BookingDate;
+  item: RoomType | AdditionalService;
+}
+
+export interface BookingSummary {
+  items: BookingItem[];
+  totalAmount: number;
 }

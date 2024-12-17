@@ -1,5 +1,8 @@
 import React from 'react';
 import { Timer } from 'lucide-react';
+import { LanguageSelector } from './LanguageSelector';
+import { CurrencySelector } from './CurrencySelector';
+import { CountdownTimer } from './CountdownTimer';
 
 export function Header() {
   return (
@@ -7,12 +10,15 @@ export function Header() {
       <div className="flex items-center space-x-8">
         <img 
           src="https://images.unsplash.com/photo-1533709752211-118fcaf03312?auto=format&fit=crop&w=100&h=50&q=80" 
-          alt="Logo" 
+          alt="Event Logo" 
           className="h-12"
         />
         <nav className="flex space-x-6">
           <a href="#" className="text-gray-700 hover:text-gray-900">EVENT INFO</a>
           <a href="#" className="text-gray-700 hover:text-gray-900">HOW TO WATCH</a>
+          <button className="text-gray-700">
+            <img src="/icons/language.svg" alt="Language" className="h-5 w-5" />
+          </button>
         </nav>
       </div>
       
@@ -21,10 +27,12 @@ export function Header() {
           <h2 className="font-bold">LOUIS VUITTON</h2>
           <p className="text-sm">37TH AMERICA'S CUP MATCH</p>
         </div>
-        <div className="flex items-center space-x-2">
-          <Timer className="text-gray-700" />
-          <div className="text-xl font-mono">1:14:32:48</div>
-        </div>
+        <CountdownTimer endDate="2024-03-15T00:00:00Z" />
+        <img 
+          src="https://images.unsplash.com/photo-1533709752211-118fcaf03312?auto=format&fit=crop&w=50&h=50&q=80" 
+          alt="Hotel Chain Logo" 
+          className="h-12"
+        />
       </div>
     </header>
   );
